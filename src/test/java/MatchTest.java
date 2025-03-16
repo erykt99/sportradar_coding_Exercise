@@ -1,16 +1,24 @@
 import org.example.Match;
 import org.example.Team;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertThrows;
 
 public class MatchTest {
+    private Team homeTeam;
+    private Team awayTeam;
+
+
+    @BeforeEach
+    void setUp() {
+        homeTeam = new Team("Brazil");
+        awayTeam = new Team("Germany");
+    }
 
     @Test
     void shouldCreateMatchWithInitialScoreZeroZero() {
-        Team homeTeam = new Team("Brazil");
-        Team awayTeam = new Team("Germany");
         Match match = new Match(homeTeam, awayTeam);
 
         Assertions.assertEquals(homeTeam, match.getHomeTeam());
@@ -22,8 +30,6 @@ public class MatchTest {
 
     @Test
     void updateScoreShouldUpdateScores() {
-        Team homeTeam = new Team("Brazil");
-        Team awayTeam = new Team("Germany");
         Match match = new Match(homeTeam, awayTeam);
 
         match.updateScore(2, 3);
@@ -35,8 +41,6 @@ public class MatchTest {
 
     @Test
     void updateScoreShouldReturnExceptionForNegativeScores() {
-        Team homeTeam = new Team("Brazil");
-        Team awayTeam = new Team("Germany");
         Match match = new Match(homeTeam, awayTeam);
 
         assertThrows(IllegalArgumentException.class, () -> match.updateScore(-1, 0));
@@ -46,8 +50,6 @@ public class MatchTest {
 
     @Test
     void getTotalScoreShouldReturnTotalScore() {
-        Team homeTeam = new Team("Brazil");
-        Team awayTeam = new Team("Germany");
         Match match = new Match(homeTeam, awayTeam);
         match.updateScore(2, 3);
         Assertions.assertEquals(5, match.getTotalScore());
@@ -55,8 +57,6 @@ public class MatchTest {
 
     @Test
     void toStringShouldReturnFormattedString() {
-        Team homeTeam = new Team("Brazil");
-        Team awayTeam = new Team("Germany");
         Match match = new Match(homeTeam, awayTeam);
         match.updateScore(2, 3);
 

@@ -11,49 +11,44 @@ import java.util.List;
 
 public class ScoreboardTest {
     private Scoreboard scoreboard;
+    private Team homeTeam;
+    private Team awayTeam;
 
     @BeforeEach
     public void setUp() {
         scoreboard = new Scoreboard();
+        homeTeam = new Team("Togo");
+        awayTeam = new Team("RPA");
+
     }
 
     @Test
     void finishMatchThatDoesntExistShouldReturnException() {
-        Team homeTeam = new Team("Togo");
-        Team awayTeam = new Team("RPA");
         Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.finishMatch(homeTeam, awayTeam));
     }
 
     @Test
     void finishMatchShouldRemoveMatchFromList() {
-        Team homeTeam = new Team("Togo");
-        Team awayTeam = new Team("RPA");
         scoreboard.startMatch(homeTeam, awayTeam);
         scoreboard.finishMatch(homeTeam, awayTeam);
-        Assertions.assertTrue(scoreboard.getRunningMatchesByTheirTotalScore().isEmpty());
+        Assertions.assertTrue(scoreboard.getRunningMatchesByTheirTotalScoreAndTime().isEmpty());
 
     }
 
     @Test
     void startMatchIfTheTeamPlayingShouldReturnException() {
-        Team homeTeam = new Team("Mexico");
-        Team awayTeam = new Team("Canada");
         scoreboard.startMatch(homeTeam, awayTeam);
-
         Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.startMatch(homeTeam, awayTeam));
         Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.startMatch(awayTeam, homeTeam));
     }
 
     @Test
     void addTeamToMatchShouldAddTeamToMatches() {
-        Team homeTeam = new Team("Mexico");
-        Team awayTeam = new Team("Canada");
-
         List<Match> matches = new ArrayList<>();
         matches.add(new Match(homeTeam, awayTeam));
 
         scoreboard.startMatch(homeTeam, awayTeam);
-        Assertions.assertEquals(matches, scoreboard.getRunningMatchesByTheirTotalScore());
+        Assertions.assertEquals(matches, scoreboard.getRunningMatchesByTheirTotalScoreAndTime());
 
     }
 
@@ -120,27 +115,21 @@ public class ScoreboardTest {
         match5.updateScore(2,2);
         matches.add(match5);
 
-        Assertions.assertEquals(matches, scoreboard.getRunningMatchesByTheirTotalScore());
+        Assertions.assertEquals(matches, scoreboard.getRunningMatchesByTheirTotalScoreAndTime());
     }
 
     @Test
     void updateScoreShouldReturnUpdatedMatch() {
-        Team homeTeam = new Team("Mexico");
-        Team awayTeam = new Team("Canada");
         Match match = scoreboard.startMatch(homeTeam, awayTeam);
     }
 
     @Test
     void updateScoreShouldReturnExceptionIfMatchDoesNotExist(){
-        Team homeTeam = new Team("Mexico");
-        Team awayTeam = new Team("Canada");
         Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.updateScore(homeTeam, awayTeam, 4, 5));
     }
 
     @Test
     void updateScoreShouldReturnExceptionIfScoresAreIncorrect() {
-        Team homeTeam = new Team("Mexico");
-        Team awayTeam = new Team("Canada");
         Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.updateScore(homeTeam, awayTeam, -1, 2));
     }
 }

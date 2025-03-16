@@ -44,7 +44,7 @@ public class Scoreboard {
     //    Get a summary of matches in progress ordered by their total score. The matches with the
     //    same total score will be returned ordered by the most recently started match in the
     //    scoreboard.
-    public List<Match> getRunningMatchesByTheirTotalScore() {
+    public List<Match> getRunningMatchesByTheirTotalScoreAndTime() {
         List<Match> sortedMatches = new ArrayList<>(matches);
         sortedMatches.sort(
                 Comparator.comparing(Match::getTotalScore, Comparator.reverseOrder())
