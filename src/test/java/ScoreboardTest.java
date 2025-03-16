@@ -25,12 +25,21 @@ public class ScoreboardTest {
     }
 
     @Test
-    void finishMatchShouldRemoveMatchFromList() {}
+    void finishMatchShouldRemoveMatchFromList() {
+        Team homeTeam = new Team("Togo");
+        Team awayTeam = new Team("RPA");
+        scoreboard.startMatch(homeTeam, awayTeam);
+        scoreboard.finishMatch(homeTeam, awayTeam);
+        Assertions.assertTrue(scoreboard.getRunningMatchesByTheirTotalScore().isEmpty());
+
+    }
 
     @Test
-    void addTeamToMatchIfTheTeamPlayingShouldReturnException() {
+    void startMatchIfTheTeamPlayingShouldReturnException() {
         Team homeTeam = new Team("Mexico");
         Team awayTeam = new Team("Canada");
+        scoreboard.startMatch(homeTeam, awayTeam);
+
         Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.startMatch(homeTeam, awayTeam));
         Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.startMatch(awayTeam, homeTeam));
     }
@@ -44,7 +53,7 @@ public class ScoreboardTest {
         matches.add(new Match(homeTeam, awayTeam));
 
         scoreboard.startMatch(homeTeam, awayTeam);
-        Assertions.assertEquals(matches, scoreboard.getSummaryOfMatches());
+        Assertions.assertEquals(matches, scoreboard.getRunningMatchesByTheirTotalScore());
 
     }
 
@@ -111,7 +120,7 @@ public class ScoreboardTest {
         match5.updateScore(2,2);
         matches.add(match5);
 
-        Assertions.assertEquals(matches, scoreboard.getSummaryOfMatches());
+        Assertions.assertEquals(matches, scoreboard.getRunningMatchesByTheirTotalScore());
     }
 
     @Test
