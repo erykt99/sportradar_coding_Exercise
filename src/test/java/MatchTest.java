@@ -52,4 +52,14 @@ public class MatchTest {
         match.updateScore(2, 3);
         Assertions.assertEquals(5, match.getTotalScore());
     }
+
+    @Test
+    void toStringShouldReturnFormattedString() {
+        Team homeTeam = new Team("Brazil");
+        Team awayTeam = new Team("Germany");
+        Match match = new Match(homeTeam, awayTeam);
+        match.updateScore(2, 3);
+
+        Assertions.assertEquals("Brazil 2 - Germany 3", match.toString());
+    }
 }
