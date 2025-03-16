@@ -120,7 +120,10 @@ public class ScoreboardTest {
 
     @Test
     void updateScoreShouldReturnUpdatedMatch() {
-        Match match = scoreboard.startMatch(homeTeam, awayTeam);
+        scoreboard.startMatch(homeTeam, awayTeam);
+        Match match = scoreboard.updateScore(homeTeam, awayTeam, 2, 3);
+        Assertions.assertEquals(2, match.getHomeTeamScore());
+        Assertions.assertEquals(3, match.getAwayTeamScore());
     }
 
     @Test
