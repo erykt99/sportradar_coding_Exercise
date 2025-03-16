@@ -56,6 +56,19 @@ public class MatchTest {
     }
 
     @Test
+    void equalsShouldReturnTrueForSameTeams() {
+        Match match = new Match(homeTeam, awayTeam);
+        Assertions.assertEquals(match, new Match(homeTeam, awayTeam));
+    }
+
+    @Test
+    void equalsShouldReturnFalseForDifferentObject() {
+        Match match = new Match(homeTeam, awayTeam);
+        Match anotherMatch = new Match(awayTeam, homeTeam);
+        Assertions.assertNotEquals(match, anotherMatch);
+    }
+
+    @Test
     void toStringShouldReturnFormattedString() {
         Match match = new Match(homeTeam, awayTeam);
         match.updateScore(2, 3);

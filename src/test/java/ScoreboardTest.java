@@ -32,6 +32,7 @@ public class ScoreboardTest {
         scoreboard.startMatch(homeTeam, awayTeam);
         scoreboard.finishMatch(homeTeam, awayTeam);
         Assertions.assertTrue(scoreboard.getRunningMatchesByTheirTotalScoreAndTime().isEmpty());
+        Assertions.assertEquals(0, scoreboard.getRunningMatchesByTheirTotalScoreAndTime().size());
 
     }
 
@@ -119,11 +120,12 @@ public class ScoreboardTest {
     }
 
     @Test
-    void updateScoreShouldReturnUpdatedMatch() {
+    void updateScoreShouldReturnUpdatedMatchScore() {
         scoreboard.startMatch(homeTeam, awayTeam);
         Match match = scoreboard.updateScore(homeTeam, awayTeam, 2, 3);
         Assertions.assertEquals(2, match.getHomeTeamScore());
         Assertions.assertEquals(3, match.getAwayTeamScore());
+        Assertions.assertEquals(5, match.getTotalScore());
     }
 
     @Test
