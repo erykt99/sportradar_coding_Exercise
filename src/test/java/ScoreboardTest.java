@@ -2,39 +2,54 @@ import org.example.Match;
 import org.example.Scoreboard;
 import org.example.Team;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreboardTest {
+    private Scoreboard scoreboard;
+
+    @BeforeEach
+    public void setUp() {
+        scoreboard = new Scoreboard();
+    }
 
     @Test
-    void finishMatchThatDoesntExistShouldReturnException() {}
+    void finishMatchThatDoesntExistShouldReturnException() {
+        Team homeTeam = new Team("Togo");
+        Team awayTeam = new Team("RPA");
+        Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.finishMatch(homeTeam, awayTeam));
+    }
 
     @Test
     void finishMatchShouldRemoveMatchFromList() {}
 
     @Test
-    void addTeamToMatchIfTheTeamPlayingShouldReturnException() {}
+    void addTeamToMatchIfTheTeamPlayingShouldReturnException() {
+        Team homeTeam = new Team("Mexico");
+        Team awayTeam = new Team("Canada");
+        Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.startMatch(homeTeam, awayTeam));
+        Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.startMatch(awayTeam, homeTeam));
+    }
 
     @Test
-    void addTeamToMatchShouldAddTeamToMatches() {}
+    void addTeamToMatchShouldAddTeamToMatches() {
+        Team homeTeam = new Team("Mexico");
+        Team awayTeam = new Team("Canada");
+
+        List<Match> matches = new ArrayList<>();
+        matches.add(new Match(homeTeam, awayTeam));
+
+        scoreboard.startMatch(homeTeam, awayTeam);
+        Assertions.assertEquals(matches, scoreboard.getSummaryOfMatches());
+
+    }
 
     @Test
-    void getMatchesShouldReturnListOrderedByTheirScoreAndTime() {}
-
-    @Test
-    void updateScoreShouldReturnUpdatedMatch() {}
-
-    @Test
-    void updateScoreShouldReturnExceptionIfMatchDoesNotExist(){}
-
-    @Test
-    void updateScoreShouldReturnExceptionIfScoresAreIncorrect() {}
-
-    @Test
-    void exerciseTestExample() {
+    void getMatchesShouldReturnListOrderedByTheirScoreAndTime() {
         Scoreboard scoreboard = new Scoreboard();
         List<Match> matches = new ArrayList<>();
 
@@ -97,7 +112,26 @@ public class ScoreboardTest {
         matches.add(match5);
 
         Assertions.assertEquals(matches, scoreboard.getSummaryOfMatches());
+    }
 
+    @Test
+    void updateScoreShouldReturnUpdatedMatch() {
+        Team homeTeam = new Team("Mexico");
+        Team awayTeam = new Team("Canada");
+        Match match = scoreboard.startMatch(homeTeam, awayTeam);
+    }
 
+    @Test
+    void updateScoreShouldReturnExceptionIfMatchDoesNotExist(){
+        Team homeTeam = new Team("Mexico");
+        Team awayTeam = new Team("Canada");
+        Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.updateScore(homeTeam, awayTeam, 4, 5));
+    }
+
+    @Test
+    void updateScoreShouldReturnExceptionIfScoresAreIncorrect() {
+        Team homeTeam = new Team("Mexico");
+        Team awayTeam = new Team("Canada");
+        Assertions.assertThrows(IllegalStateException.class, () -> scoreboard.updateScore(homeTeam, awayTeam, -1, 2));
     }
 }
