@@ -33,7 +33,6 @@ public class Match {
     public Team getAwayTeam() {return awayTeam;}
     public LocalDateTime getStartTime() {return startTime;}
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

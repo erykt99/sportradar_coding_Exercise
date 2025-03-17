@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Team {
     private final String teamName;
 
-
     public Team(String teamName) {
         if (teamName == null ||  teamName.isBlank()) {
             throw new IllegalArgumentException("Team name cannot be null or empty");
@@ -22,6 +21,7 @@ public class Team {
         Team team = (Team) o;
         return Objects.equals(teamName, team.teamName);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(teamName);

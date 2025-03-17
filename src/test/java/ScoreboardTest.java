@@ -2,7 +2,6 @@ import org.example.Match;
 import org.example.Scoreboard;
 import org.example.Team;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,6 @@ public class ScoreboardTest {
         scoreboard = new Scoreboard();
         homeTeam = new Team("Togo");
         awayTeam = new Team("RPA");
-
     }
 
     @Test
@@ -33,7 +31,6 @@ public class ScoreboardTest {
         scoreboard.finishMatch(homeTeam, awayTeam);
         Assertions.assertTrue(scoreboard.getRunningMatchesByTheirTotalScoreAndTime().isEmpty());
         Assertions.assertEquals(0, scoreboard.getRunningMatchesByTheirTotalScoreAndTime().size());
-
     }
 
     @Test
@@ -50,7 +47,6 @@ public class ScoreboardTest {
 
         scoreboard.startMatch(homeTeam, awayTeam);
         Assertions.assertEquals(matches, scoreboard.getRunningMatchesByTheirTotalScoreAndTime());
-
     }
 
     @Test
@@ -79,12 +75,10 @@ public class ScoreboardTest {
         scoreboard.startMatch(homeTeam4, awayTeam4);
         scoreboard.updateScore(homeTeam4, awayTeam4, 6, 6);
 
-
         Team homeTeam5 = new Team("Argentina");
         Team awayTeam5 = new Team("Australia");
         scoreboard.startMatch(homeTeam5, awayTeam5);
         scoreboard.updateScore(homeTeam5, awayTeam5, 3, 1);
-
 
         Team homeTeamOrderByTotalScore = new Team("Uruguay");
         Team awayTeamOrderByTotalScore = new Team("Italy");

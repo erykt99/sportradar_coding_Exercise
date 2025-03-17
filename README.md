@@ -6,3 +6,6 @@
 * endTime for Match is not needed in current implementation
 * I'm not sure that return Match in most Scoreboard function is good idea but requirements are not clear for me, imo for future implementation is OK
 * I don't use too many error handlers because this library don't have too much user input, and we have control over variables
+* In general, I tried not to go out of the scope of the task, all the requirements are done
+* Also didn't implement any design pattern or something special because for that small project it would be too much
+* 
