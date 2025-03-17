@@ -8,4 +8,4 @@
 * I don't use too many error handlers because this library don't have too much user input, and we have control over variables
 * In general, I tried not to go out of the scope of the task, all the requirements are done
 * Also didn't implement any design pattern or something special because for that small project it would be too much
-* If I were develop this project, I would probably use Abstract Factory pattern, because this design pattern allow, because this design pattern would easily allow the scoreboard to be extended to other disciplines 
+* If I were develop this project, I would probably use Abstract Factory pattern, because this design pattern allow the scoreboard to be extended to other disciplines 
